@@ -27,4 +27,4 @@ docker compose exec web python manage.py createsuperuser
 
 ## Produkce
 
-Pro VPS je připravený `docker-compose.prod.yml`. Počítá s tím, že Nginx běží na hostu a směruje doménu `fotky.foto-kocourkovi.cz` na `127.0.0.1:8001`.
+Pro VPS je připravený `docker-compose.prod.yml`. Počítá s tím, že Nginx běží na hostu a směruje doménu `fotky.foto-kocourkovi.cz` na `127.0.0.1:8002`.
