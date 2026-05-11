@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="cs">
+<body style="font-family: Arial, sans-serif; color: #1f2937; line-height: 1.5;">
+    <p style="margin: 0 0 12px;"><strong>{{ brand_name }}</strong></p>
+    <p style="margin: 0 0 12px;">Byla právě vytvořena nová objednávka z klientské galerie.</p>
+
+    <p style="margin: 0 0 8px;"><strong>Rekapitulace</strong></p>
+    <ul style="margin: 0 0 14px; padding-left: 18px;">
+        <li>Reference: {{ order.public_id }}</li>
+        <li>Galerie: {{ gallery_title }}</li>
+        <li>Zakázka: {{ job_title }}</li>
+        <li>Položky: {{ items_count }}</li>
+        <li>Celkem: {{ total_price }} Kč</li>
+        <li>Kontakt: {{ client_contact }}</li>
+    </ul>
+
+    <p style="margin: 0;">Objednávku najdete v interní administraci.</p>
+</body>
+</html>

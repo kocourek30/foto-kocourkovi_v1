@@ -1,0 +1,48 @@
+{% extends "client/base.html" %}
+
+{% block title %}Potvrzení objednávky | {{ gallery.title }}{% endblock %}
+{% block page_heading %}Potvrzení objednávky{% endblock %}
+{% block back_url %}{% url 'client-gallery' token=gallery.token %}{% endblock %}
+{% block back_label %}Zpět do galerie{% endblock %}
+
+{% block content %}
+<section class="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-soft">
+    <p class="text-sm font-semibold text-emerald-800">Objednávka byla úspěšně odeslána.</p>
+    <p class="mt-1 text-sm text-emerald-900">Reference: <span class="font-semibold">{{ order.public_id }}</span></p>
+    <p class="mt-2 text-sm text-slate-700">Fotografka objednávku zpracuje a v případě potřeby se vám ozve s dalším postupem.</p>
+</section>
+
+<section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+    <p class="mb-3 text-sm text-slate-600">Galerie: {{ gallery.title }}</p>
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead>
+                <tr class="border-b border-slate-200 text-left text-slate-500">
+                    <th class="py-3 pr-3">Fotka</th>
+                    <th class="py-3 pr-3">Popis</th>
+                    <th class="py-3 pr-3">Formát</th>
+                    <th class="py-3 pr-3">Počet</th>
+                    <th class="py-3 pr-3">Cena/ks</th>
+                    <th class="py-3 pr-3">Mezisoučet</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr class="border-b border-slate-100">
+                        <td class="py-3 pr-3"><img class="h-20 w-20 rounded-lg object-cover bg-slate-200" src="{{ item.thumb_url }}" alt="Fotka {{ item.photo_id }}"></td>
+                        <td class="py-3 pr-3">{% if item.caption %}{{ item.caption }}{% else %}Fotka #{{ item.photo_id }}{% endif %}</td>
+                        <td class="py-3 pr-3">{{ item.print_label }}</td>
+                        <td class="py-3 pr-3">{{ item.quantity }}</td>
+                        <td class="py-3 pr-3">{{ item.unit_price }} Kč</td>
+                        <td class="py-3 pr-3 font-medium">{{ item.subtotal }} Kč</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-3 text-sm font-semibold text-slate-800">
+        <span class="rounded-full bg-slate-100 px-3 py-1">Položek: {{ items_count }} ks</span>
+        <span class="rounded-full bg-brand-50 px-3 py-1 text-brand-700">Celkem: {{ total_price }} Kč</span>
+    </div>
+</section>
+{% endblock %}

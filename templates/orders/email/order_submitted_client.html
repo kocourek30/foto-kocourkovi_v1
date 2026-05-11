@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="cs">
+<body style="font-family: Arial, sans-serif; color: #1f2937; line-height: 1.5;">
+    <p style="margin: 0 0 12px;"><strong>{{ brand_name }}</strong></p>
+    <p style="margin: 0 0 12px;">{{ client_greeting }}</p>
+    <p style="margin: 0 0 12px;">děkujeme za vaši objednávku. Objednávku jsme přijali a budeme ji dále zpracovávat.</p>
+
+    <p style="margin: 0 0 8px;"><strong>Rekapitulace objednávky</strong></p>
+    <ul style="margin: 0 0 14px; padding-left: 18px;">
+        <li>Reference: {{ order.public_id }}</li>
+        <li>Galerie: {{ gallery_title }}</li>
+        <li>Položky: {{ items_count }}</li>
+        <li>Celkem: {{ total_price }} Kč</li>
+    </ul>
+
+    <p style="margin: 0 0 12px;">V případě potřeby se vám ozveme s dalším postupem.</p>
+    <p style="margin: 0;">S pozdravem,<br>{{ brand_name }}</p>
+</body>
+</html>

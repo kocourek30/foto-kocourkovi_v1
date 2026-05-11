@@ -1,0 +1,100 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate "Home" %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url 'admin:photos_photo_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; Hromadný import
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <h1>Hromadný import fotek</h1>
+    <p style="margin-bottom: 16px; color: #666;">
+        Vyber galerii, přetáhni více obrázků nebo je vyber ručně. Pro každý soubor se vytvoří fotka a automaticky varianty.
+    </p>
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <fieldset class="module aligned">
+            <div class="form-row">
+                {{ form.gallery.errors }}
+                <div>
+                    <label for="{{ form.gallery.id_for_label }}">{{ form.gallery.label }}:</label>
+                    {{ form.gallery }}
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="module aligned" style="padding: 16px;">
+            <div id="drop-zone" style="border: 2px dashed #a78bfa; border-radius: 10px; padding: 24px; background: #faf7ff;">
+                <p style="margin: 0 0 10px 0;">
+                    Přetáhni fotky sem nebo použij výběr souborů.
+                </p>
+                <div>
+                    {{ form.files.errors }}
+                    {{ form.files }}
+                </div>
+                <small style="display: block; margin-top: 8px; color: #666;">Podporované formáty: běžné obrázky (jpg, png, webp, ...)</small>
+            </div>
+            <div id="file-list" style="margin-top: 12px; color: #444;"></div>
+        </fieldset>
+
+        <div class="submit-row">
+            <a href="{% url 'admin:photos_photo_changelist' %}" class="button cancel-link">Zpět</a>
+            <input type="submit" value="Importovat" class="default">
+        </div>
+    </form>
+</div>
+
+<script>
+(() => {
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("id_files");
+    const fileList = document.getElementById("file-list");
+
+    const renderFileList = (files) => {
+        if (!files || !files.length) {
+            fileList.innerHTML = "";
+            return;
+        }
+        const items = Array.from(files)
+            .map((file) => `<li>${file.name}</li>`)
+            .join("");
+        fileList.innerHTML = `<strong>Vybrané soubory (${files.length}):</strong><ul style="margin: 6px 0 0 18px;">${items}</ul>`;
+    };
+
+    fileInput.addEventListener("change", () => {
+        renderFileList(fileInput.files);
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dropZone.style.background = "#f3ecff";
+            dropZone.style.borderColor = "#7c3aed";
+        });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dropZone.style.background = "#faf7ff";
+            dropZone.style.borderColor = "#a78bfa";
+        });
+    });
+
+    dropZone.addEventListener("drop", (event) => {
+        const files = event.dataTransfer.files;
+        fileInput.files = files;
+        renderFileList(files);
+    });
+})();
+</script>
+{% endblock %}
+

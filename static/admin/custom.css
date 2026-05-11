@@ -1,0 +1,46 @@
+:root {
+  --fk-primary: #6d28d9;
+  --fk-primary-2: #7c3aed;
+  --fk-accent: #a78bfa;
+  --fk-bg: #f8f7fc;
+  --fk-sidebar: #211a36;
+}
+
+body {
+  background-color: var(--fk-bg);
+}
+
+.main-sidebar,
+.main-sidebar .brand-link {
+  background-color: var(--fk-sidebar) !important;
+}
+
+.main-sidebar .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: var(--fk-primary) !important;
+  color: #fff !important;
+}
+
+.main-sidebar .nav-sidebar .nav-link:hover {
+  background-color: rgba(167, 139, 250, 0.18) !important;
+  color: #fff !important;
+}
+
+.btn-primary,
+.page-item.active .page-link,
+.custom-control-input:checked ~ .custom-control-label::before,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active {
+  background-color: var(--fk-primary) !important;
+  border-color: var(--fk-primary) !important;
+}
+
+a {
+  color: var(--fk-primary-2);
+}
+
+a:hover {
+  color: #5b21b6;
+}
+
+.content-wrapper .card {
+  border-radius: 10px;
+}

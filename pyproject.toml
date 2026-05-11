@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "foto-kocourkovi"
+version = "0.1.0"
+description = "Django MVP pro fotografku"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "Django>=5.2,<6.0",
+    "gunicorn>=22.0,<23.0",
+    "psycopg[binary]>=3.2,<4.0",
+    "Pillow>=10.4,<11.0",
+    "django-jazzmin>=3.0.1,<4.0",
+    "reportlab>=4.2,<5.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["config*", "apps*"]
