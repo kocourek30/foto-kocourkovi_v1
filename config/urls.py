@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path("", RedirectView.as_view(url="/admin/", permanent=False)),
+    path("", RedirectView.as_view(url="/admin/login/?next=/admin/", permanent=False)),
     path("", include("apps.galleries.urls")),
     path("", include("apps.orders.urls")),
     path("admin/", admin.site.urls),
